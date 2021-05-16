@@ -1,0 +1,26 @@
+{% extends "index.html" %}
+
+{% block content %}
+
+<h1>Sign Up</h1>
+
+        <form action="" method="post">
+        {% if invalid_data %}
+        <span style="color: #f44"> Incorrect data </span>
+        {% endif %}
+        <br>
+        <label for=""> Username: </label>
+        <input type="text" name="username" required value="{{ username }}"> <br>
+        <label for=""> Password: </label>
+        <input type="password" name="password" required value="{{ password }}"> <br>
+        <label for=""> Confirm password: </label>
+        <input type="password" name="password_2" required value="{{ password_2 }}"> <br>
+        <br>
+        <br>
+        <input type="submit" value="Sign up">
+        </form>
+
+{% endblock %}
+
+{% block pagination %}
+{% endblock %}

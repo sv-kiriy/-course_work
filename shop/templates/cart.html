@@ -1,0 +1,41 @@
+{% extends "index.html" %}
+
+{% block content %}
+
+    <h1>My cart</h1>
+    {% for item in items %}
+        <div class=item>
+           <table width="100%"><tr><td width=150>
+                <div style="margin-top: 5px">
+                   <img width=150 src={{item.ref.game.img.url}}> </div>
+                </td><td>
+                <i> Game: </i> {{ item.ref.game.title }} <br>
+                <i> Version: </i> {{ item.ref.version }} <br>
+                <i> Price: </i> {{ item.ref.price }} <br>
+                <i> Amount: </i> {{ item.amount }} <br>
+                <form style="display: inline-block" action="/change_amount/" method="POST">
+                      <input type="submit" value="+1"><br><br>
+                      <input type="hidden" name="item_id" value="{{ item.id }}">
+                      <input type="hidden" name="delta" value="1">
+                </form>
+                {% if item.amount > 1 %}
+                <form style="display: inline-block" action="/change_amount/" method="POST">
+                      <input type="submit" value="-1"><br><br>
+                      <input type="hidden" name="delta" value="-1">
+                      <input type="hidden" name="item_id" value="{{ item.id }}">
+                </form>
+                {% endif %}
+                <form action="/del_from_cart/" method="POST">
+                      <input type="submit" id=del class=btn value="Delete"><br><br>
+                      <input type="hidden" name="item_id" value="{{ item.id }}">
+                </form>
+            </td></tr></table>
+        </div> <br>
+    {% empty %}
+            Your cart is empty<br>
+    {% endfor %}
+    {% if items %}
+        <center><b><a class=btn-buy href="/payment/">BUY!</a></b></center><br>
+    {% endif %}
+
+{% endblock %}

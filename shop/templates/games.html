@@ -1,0 +1,30 @@
+{% extends "index.html" %}
+
+{% block content %}
+
+    <h1>Games</h1>
+        <i>{% if search and items %}
+        Search results for <b>{{search}}:</b>
+        {% endif %}</i><br><br>
+    {% for item in items %}
+        <div class=item>
+            <table width="100%"><tr><td width=150>
+                <div style="margin-top: 5px">
+                   <img width=150 src={{item.img.url}}></div>
+                </td><td>
+                <b>{{ item.title|title }}</b><br>
+                {{ item.description }} <br>
+                <a href="/?game_id={{ item.id }}">View keys</a>
+                </td></tr>
+            </table>
+        </div> <br>
+    {% empty %}
+        <i>{% if search %}
+        No results for <b>{{search}}</b>
+        {% else %}
+        Empty!
+        {% endif %}</i><br><br>
+    {% endfor %}
+
+
+{% endblock %}

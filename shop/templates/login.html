@@ -1,0 +1,24 @@
+{% extends "index.html" %}
+{% block content %}
+<h1>Sign In</h1>
+
+    <div>
+        <form action="/login/" method="post">
+        {% if auth_error %}
+        <span style="color: #f44"> Invalid login or password </span> 
+        {% endif %}
+        <br>
+        <label for=""> Username: </label>
+        <input type="text" name="username" value="{{ login_username }}"> <br> 
+        <label for=""> Password: </label> 
+        <input type="password" name="password" value="{{ login_password }}"> <br> 
+        <br>
+        <br>
+        <input type="submit" value="Sign in">
+        </form>
+    </div>
+
+{% endblock %}
+
+{% block pagination %}
+{% endblock %}

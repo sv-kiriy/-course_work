@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+{% load static %}
+    <meta charset="UTF-8">
+    <title>LicShop</title>
+    <style type="text/css">
+        body {
+            margin: 40px auto;
+            max-width: 950px;
+            line-height: 1.6;
+            font-size: 18px;
+            color: #222;
+            background-color: #fafafa;
+            padding: 0 10px
+        }
+        h1, h2, h3 {
+            line-height: 1.2
+        }
+        .footer {
+            text-align: center
+        }
+        .content {
+        }
+        .btn {
+            background-color: white;
+            border: 2px solid #efcc00;
+            padding: 10px;
+            text-align: center;
+            display: inline-block;
+            font-size: 16px;
+            float: right;
+        }
+        .btn:hover {
+/*            background-color: #efdcaa;*/
+            color: white;
+            background-color: #efcc00;
+        }
+        .btn-buy {
+            background-color: white;
+            border: 2px solid #efcc00;
+            padding: 20px;
+            text-align: center;
+            display: inline-block;
+            font-size: 18px;
+        }
+        .btn-buy:hover {
+/*            background-color: #efdcaa;*/
+            color: white;
+            background-color: #efcc00;
+        }
+        .added {
+            border: 2px solid #22dd22;
+            text-align: center;
+            display: inline-block;
+            padding: 10px;
+            float: right;
+        }
+        #del {
+            border: 2px solid #ef2222;
+        }
+        #del:hover {
+            /*background-color: #ffdcdd;*/
+            background-color: #ef2222;
+            color: white;
+        }
+        td {
+            vertical-align: top;
+            padding: 15px
+        }
+        td#payment {
+            padding: 5px 15px
+        }
+        .item {
+            background-color: white;
+            box-shadow: 0 0 8px 1px rgba(0,0,0,0.2);
+        }
+        .pagination {
+            text-decoration: none;
+            font-size: 21pt;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+
+        <img src="{% static "peka.jpg" %}" width=100 />
+        <span style="font-size: 48px; margin-left: 40px"> <b>LicShop</b> </span><br>
+        <a href="/">License keys</a> |
+        <a href="/games">Games</a> |
+        <a href="/cart">My shopping cart</a> |
+        <a href="/apidoc">API docs</a> |
+        {% if user.is_authenticated %}
+            Logged in as <strong>{{ user.username }}</strong> <a href=/logout>(log out)</a> |
+        {% else %}
+            <a href="/signup">Sign up</a> | 
+            <a href="/login">Sign in</a> |
+        {% endif %}
+        <form style="display: inline-block" method="POST" action="/search/">
+            <input type="text" name="search" value="{{ search }}" style="width: 100px" placeholder="Search..">
+            <input type="Submit" value="Search">
+        </form>
+        <br>
+
+    </div>
+
+
+    <div class="content">
+
+        {% block content %}
+
+            <h1> License keys            
+                {% if game_title %}
+                    for "{{ game_title }}"
+                {% endif %}
+            </h1>
+
+            {% for item in items %}
+                <div class=item>
+                    <table width="100%"><tr><td width=150>
+                        <div style="margin-top: 5px">
+                            <img width=150 src={{item.game.img.url}}></div>
+                        </td><td>
+                        {% if not game_title %}
+           <b> <a href="/?game_id={{ item.game.id }}"> {{ item.game.title|title }}</a></b> <br>
+                        {% endif %}
+                        Version: {{ item.version }} <br>
+                        Price: {{  item.price }}$ <br>
+                        {% if item in cart_items %}
+                           <span class=added> Added </span><br><br>
+                        {% else %}
+                            <form method="POST" action="/add_to_cart/">
+                                <input class=btn type="submit" value="Add to cart"><br><br>
+                                <input type="hidden" name="item_id" value="{{ item.id }}">
+                            </form>
+                        {% endif %}
+                    </td></tr></table> 
+                </div> <br>
+            {% empty %}
+                <i>Empty!<i>
+            {% endfor %}
+
+        {% endblock %}
+
+        {% block pagination %}
+        
+                {% if items.has_previous %}
+                    <a class="pagination" href="?page={{ items.previous_page_number }}">&larr;</a>
+                {% endif %}
+                    page {{ items.number }} of {{ items.paginator.num_pages }}
+                {% if items.has_next %}
+                    <a class="pagination" href="?page={{ items.next_page_number }}">&rarr;</a>
+                {% endif %}
+
+        {% endblock %}
+
+    </div>
+
+<br>
+<br>
+    <div class="footer">
+
+        Copyright {% now "Y" %} &copy; Lana
+
+    </div>
+
+
+</body>
+</html>

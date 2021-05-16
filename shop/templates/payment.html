@@ -1,0 +1,26 @@
+{% extends "index.html" %}
+
+{% block content %}
+
+<h1>Payment</h1>
+<table>
+    <tr><td><b>Item</b></td> <td align=right><b>Price</b></td></tr>
+    {% for item in items %}
+        <tr><td id=payment align=left>
+        {{ item.ref.game.title }} ({{ item.ref.version }}){% if item.amount > 1 %} * {{ item.amount }}{% endif %}
+        </td><td id=payment align=right>
+        {{ item.ref.price }}{% if item.amount > 1 %} * {{ item.amount }}{% endif %}
+
+        </td></tr>
+    {% endfor %}
+    <tr><td><b>Total</b></td> <td align=right><b>{{ total }}</b></td></tr>
+</table>
+
+            <form method="POST" action="/pay/">
+                <input class=btn type="submit" value="Pay"><br><br>
+                <input type="hidden" name="item_id" value="{{ item.id }}">
+            </form>
+{% endblock %}
+
+{% block pagination %}
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends "index.html" %}
+
+{% block content %}
+
+    <h1>API docs</h1>
+    API endpoints supported:<br>
+    <h4>GET /api/games/</h4>
+    accepts parameter: game_id<br>
+    example response:
+<pre>
+{
+  "games":[
+    {
+      "game_id":1,
+      "game_title":"Test Game",
+      "game_description":"An interesting game description"
+    },
+    {
+      "game_id":2,
+      "game_title":"foobaaar",
+      "game_description":"meowmeowmeow"
+    }
+  ]
+} </pre>
+<a href=/api/games/>&gt;&gt;&gt;Try this endpoint</a><br>
+    <h4>GET /api/lic_keys/</h4>
+    accepts parameter: game_id<br>
+    example response:
+<pre>
+{
+  "lic_keys":[
+    {
+      "price":9.9,
+      "game_version":"1.0",
+      "game_id":1
+    },
+    {
+      "price":19.9,
+      "game_version":"2.0",
+      "game_id":1
+    },
+    {
+      "price":4.9,
+      "game_version":"1.1.1",
+      "game_id":2
+    }
+  ]
+} </pre>
+<a href=/api/lic_keys/>&gt;&gt;&gt; Try this endpoint</a><br>
+
+{% endblock %}
+{% block pagination %}
+{% endblock %}
