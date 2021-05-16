@@ -1,0 +1,41 @@
+Sat May 30 12:32:37 2020 User admin logged in
+Sat May 30 12:33:06 2020 User admin payed the order Order for admin
+Sat May 30 12:33:12 2020 User admin logged out
+Internal Server Error: /api/games/
+Traceback (most recent call last):
+  File "/home/sleeping/.local/lib/python3.5/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/home/sleeping/.local/lib/python3.5/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/home/sleeping/.local/lib/python3.5/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/sleeping/lic_shop/shop/views.py", line 179, in dump_games
+    return JsonResponse({'games': games})
+  File "/home/sleeping/.local/lib/python3.5/site-packages/django/http/response.py", line 558, in __init__
+    data = json.dumps(data, cls=encoder, **json_dumps_params)
+  File "/usr/lib/python3.5/json/__init__.py", line 237, in dumps
+    **kw).encode(obj)
+  File "/usr/lib/python3.5/json/encoder.py", line 198, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "/usr/lib/python3.5/json/encoder.py", line 256, in iterencode
+    return _iterencode(o, 0)
+  File "/home/sleeping/.local/lib/python3.5/site-packages/django/core/serializers/json.py", line 104, in default
+    return super().default(o)
+  File "/usr/lib/python3.5/json/encoder.py", line 179, in default
+    raise TypeError(repr(o) + " is not JSON serializable")
+TypeError: <QuerySet [<Game: Test Game>, <Game: foobaaar>]> is not JSON serializable
+Internal Server Error: /api/games/
+Traceback (most recent call last):
+  File "/home/sleeping/.local/lib/python3.5/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/home/sleeping/.local/lib/python3.5/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/home/sleeping/.local/lib/python3.5/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/sleeping/lic_shop/shop/views.py", line 187, in dump_games
+    return JsonResponse({'games': games_to_json(games)})
+  File "/home/sleeping/lic_shop/shop/views.py", line 181, in games_to_json
+    'game_id': g.id} for g in games]
+TypeError: 'Game' object is not iterable
+Sat May 30 14:04:52 2020 User admin logged in
+Sat May 30 14:05:00 2020 User admin payed the order 6
